@@ -1,0 +1,5 @@
+chat_downloader==0.2.8
+google_api_python_client==2.149.0
+matplotlib==3.7.2
+pandas==1.4.3
+python-dotenv==1.0.1
