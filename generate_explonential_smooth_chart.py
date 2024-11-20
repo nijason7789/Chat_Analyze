@@ -79,7 +79,7 @@ def detect_incremental_regions(smoothed_data, increment_threshold=DEFAULT_INCREM
 
     return incremental_regions
 
-def merge_intervals(peaks, incremental_regions, merge_threshold=DEFAULT_MERGE_THRESHOLD):
+def merge_incremental_regions(peaks, incremental_regions, merge_threshold=DEFAULT_MERGE_THRESHOLD):
     """
     Merges peaks and incremental regions into intervals.
 
@@ -91,16 +91,16 @@ def merge_intervals(peaks, incremental_regions, merge_threshold=DEFAULT_MERGE_TH
     Returns:
     - list of tuples, the merged intervals.
     """
-    merged_intervals = []
+    merged_incremental_regions = []
     for peak in peaks:
         peak_interval = (peak - pd.to_timedelta(merge_threshold, unit='s'), peak + pd.to_timedelta(merge_threshold, unit='s'))
         for region in incremental_regions:
             if region[0] <= peak_interval[1] and region[1] >= peak_interval[0]:
                 start = min(peak, region[0])
                 end = max(peak, region[1])
-                merged_intervals.append((start, end))
+                merged_incremental_regions.append((start, end))
                 break
-    return merged_intervals
+    return merged_incremental_regions
 
 def merge_overlapping_intervals(intervals):
     """
@@ -183,7 +183,7 @@ def generate_exp_smooth_chart(input_csv, csv_folder=DEFAULT_CSV_FOLDER, chart_fo
     peak_threshold_value = np.percentile(smoothed_data, percentage)
     peaks = detect_peaks(smoothed_data, peak_threshold_value)
     incremental_regions = detect_incremental_regions(smoothed_data, increment_threshold)
-    merged_intervals = merge_intervals(peaks, incremental_regions, merge_threshold)
+    merged_intervals = merge_incremental_regions(peaks, incremental_regions, merge_threshold)
     final_intervals = merge_overlapping_intervals(merged_intervals)
     output_image = os.path.join(chart_folder, os.path.splitext(input_csv)[0] + "_highlighted_intervals.png")
     plot_highlighted_intervals(data, smoothed_data, "YouTube Chat Messages Over Time (Exponential Smoothed)", final_intervals, output_image)
