@@ -34,7 +34,7 @@ jobs:
     - name: Ensure directory exists
       run: |
         mkdir -p csv_files charts
-        
+
     - name: Run script
       run: |
         python main.py "https://www.youtube.com/watch?v=ff5BbAFKPnI"
@@ -43,4 +43,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: generated-images
-        path: /charts
+        path: /charts/
