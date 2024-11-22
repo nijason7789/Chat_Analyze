@@ -1,12 +1,14 @@
 name: Run Python Script
 
 on:
-  workflow_dispatch:
-    inputs:
-      url:
-        description: "Input URL for the Live to Analyze"
-        required: true
-        default: "https://example.com"
+    pull_request:
+        branches: 'main'
+    workflow_dispatch:
+        inputs:
+            url:
+                description: "Input URL for the Live to Analyze"
+                required: true
+                default: "https://example.com"  
 
 jobs:
   execute-python:
