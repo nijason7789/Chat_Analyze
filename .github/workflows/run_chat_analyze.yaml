@@ -1,8 +1,6 @@
 name: Run Python Script
 
 on:
-    pull_request:
-        branches: 'main'
     workflow_dispatch:
         inputs:
             url:
@@ -37,7 +35,7 @@ jobs:
 
     - name: Run script
       run: |
-        python main.py "https://www.youtube.com/watch?v=ff5BbAFKPnI"
+        python main.py "${{github.event.inputs.url}}"
 
     - name: Print current working directory
       run: pwd
