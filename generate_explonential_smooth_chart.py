@@ -186,4 +186,4 @@ def generate_exp_smooth_chart(input_csv, csv_folder=DEFAULT_CSV_FOLDER, chart_fo
     merged_intervals = merge_incremental_regions(peaks, incremental_regions, merge_threshold)
     final_intervals = merge_overlapping_intervals(merged_intervals)
     output_image = os.path.join(chart_folder, os.path.splitext(input_csv)[0] + "_highlighted_intervals.png")
-    plot_highlighted_intervals(data, smoothed_data, "YouTube Chat Messages Over Time (Exponential Smoothed)", final_intervals, output_image)
+    plot_highlighted_intervals(smoothed_data, "YouTube Chat Messages Over Time (Exponential Smoothed)", final_intervals, output_image)
