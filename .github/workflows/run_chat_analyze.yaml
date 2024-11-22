@@ -37,11 +37,9 @@ jobs:
       run: |
         python main.py "${{github.event.inputs.url}}"
 
-    - name: Print current working directory
-      run: pwd
-
     - name: Upload generated files
       uses: actions/upload-artifact@v3
+      if: success()
       with:
         name: generated-images
         path: charts/
