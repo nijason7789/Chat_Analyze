@@ -1,4 +1,4 @@
-name: Run Python Script
+name: Analyze chat trend
 
 on:
     workflow_dispatch:
@@ -9,7 +9,7 @@ on:
                 default: "https://example.com"  
 
 jobs:
-  execute-python:
+  Analyze-Chat:
     runs-on: ubuntu-latest
 
     steps:
