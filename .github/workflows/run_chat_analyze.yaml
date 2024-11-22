@@ -39,8 +39,11 @@ jobs:
       run: |
         python main.py "https://www.youtube.com/watch?v=ff5BbAFKPnI"
 
+    - name: Print current working directory
+      run: pwd
+
     - name: Upload generated files
       uses: actions/upload-artifact@v3
       with:
         name: generated-images
-        path: /charts/
+        path: charts/
