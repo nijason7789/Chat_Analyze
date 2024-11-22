@@ -1,8 +1,6 @@
 name: Run Python Script
 
 on:
-    pull_request:
-        branches: 'main'
     workflow_dispatch:
         inputs:
             url:
