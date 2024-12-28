@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import styles from './ImageMagnifier.module.css';
 
 export default function ImageMagnifier({
   src,
@@ -26,24 +27,19 @@ export default function ImageMagnifier({
     const { top, left, width, height } = elem.getBoundingClientRect();
 
     // 計算相對於圖片的滑鼠位置（考慮滾動）
-    const x = e.clientX - left;
-    const y = e.clientY - top;
+    const x = e.pageX - (left + window.scrollX);
+    const y = e.pageY - (top + window.scrollY);
 
-    // 計算滑鼠位置的百分比
-    const xPercent = Math.max(0, Math.min(100, (x / width) * 100));
-    const yPercent = Math.max(0, Math.min(100, (y / height) * 100));
-
-    setXY([xPercent, yPercent]);
+    setXY([x, y]);
   };
 
   return (
-    <div className="relative">
+    <div className={styles.container}>
       <img
         ref={imgRef}
         src={src}
         alt={alt}
-        className="w-full h-full object-contain rounded-lg"
-        style={{ maxHeight: 'calc(90vh - 2rem)' }}
+        className={styles.image}
         onMouseEnter={(e) => {
           const elem = e.currentTarget;
           const { width, height } = elem.getBoundingClientRect();
@@ -59,29 +55,20 @@ export default function ImageMagnifier({
 
       {showMagnifier && (
         <div
-          className="absolute pointer-events-none border border-gray-200 bg-white rounded-lg shadow-xl"
+          className={styles.magnifier}
           style={{
             height: `${magnifierHeight}px`,
             width: `${magnifierWidth}px`,
-            top: y + '%',
-            left: x + '%',
+            top: `${y}px`,
+            left: `${x}px`,
             transform: 'translate(-50%, -50%)',
             backgroundImage: `url('${src}')`,
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: `${x * (zoomLevel / (zoomLevel - 1))}% ${y * (zoomLevel / (zoomLevel - 1))}%`,
+            backgroundPosition: `${(x / imgWidth) * 100}% ${(y / imgHeight) * 100}%`,
             backgroundSize: `${imgWidth * zoomLevel}px ${imgHeight * zoomLevel}px`,
-            zIndex: 1000,
           }}
         >
-          <div
-            className="absolute w-1 h-1 bg-red-500 rounded-full"
-            style={{
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 1001,
-            }}
-          />
+          <div className={styles.cursor} />
         </div>
       )}
     </div>

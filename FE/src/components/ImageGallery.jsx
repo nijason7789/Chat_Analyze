@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import ImageMagnifier from './ImageMagnifier';
+import styles from './ImageGallery.module.css';
 
 export default function ImageGallery({ images }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -9,23 +10,23 @@ export default function ImageGallery({ images }) {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-8">
+      <div className={styles.container}>
+        <div className={styles.grid}>
           {images.map((image, index) => (
             <div 
               key={index} 
-              className="relative group cursor-pointer"
+              className={styles.imageWrapper}
               onClick={() => setSelectedImage(image)}
             >
               <img
                 src={image}
                 alt={`Analysis Chart ${index + 1}`}
-                className="w-full min-h-[500px] object-contain rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className={styles.image}
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300">
-                <div className="transform scale-0 group-hover:scale-100 transition-transform duration-300">
+              <div className={styles.overlay}>
+                <div className={styles.zoomIcon}>
                   <svg 
-                    className="w-12 h-12 text-white opacity-80" 
+                    className={styles.icon}
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"
@@ -47,19 +48,19 @@ export default function ImageGallery({ images }) {
       <Dialog
         open={selectedImage !== null}
         onClose={() => setSelectedImage(null)}
-        className="relative z-50"
+        className={styles.dialog}
       >
-        <div className="fixed inset-0 bg-black/75" aria-hidden="true" />
+        <div className={styles.dialogBackdrop} aria-hidden="true" />
 
-        <div className="fixed inset-0 flex items-center justify-center p-4">
-          <Dialog.Panel className="w-full max-w-[90vw] max-h-[90vh] rounded-lg bg-white">
-            <div className="relative">
+        <div className={styles.dialogContainer}>
+          <Dialog.Panel className={styles.dialogPanel}>
+            <div className={styles.relative}>
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-500 hover:text-gray-700"
+                className={styles.closeButton}
               >
                 <svg 
-                  className="w-6 h-6" 
+                  className={styles.closeIcon}
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
