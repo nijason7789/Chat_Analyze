@@ -1,17 +1,17 @@
-.form-container {
+.formContainer {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.form-label {
+.formLabel {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
   color: #374151;
 }
 
-.form-input {
+.formInput {
   display: block;
   width: 100%;
   padding: 0.5rem 0.75rem;
@@ -21,46 +21,48 @@
   font-size: 0.875rem;
 }
 
-.form-input:focus {
+.formInput:focus {
   outline: none;
   border-color: #3B82F6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.submit-button {
-  width: 100%;
+.formInput::placeholder {
+  color: #9CA3AF;
+}
+
+.submitButton {
   display: inline-flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
-  margin-top: 1rem;
-  border: none;
-  border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
   color: white;
-  background-color: #2563EB;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #3B82F6;
+  border: none;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
-.submit-button:hover {
-  background-color: #1D4ED8;
+.submitButton:hover {
+  background-color: #2563EB;
 }
 
-.submit-button:focus {
+.submitButton:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
 }
 
-.submit-button:disabled {
-  opacity: 0.5;
+.submitButton:disabled {
+  background-color: #9CA3AF;
   cursor: not-allowed;
 }
 
-.github-icon {
-  margin-right: 0.5rem;
-  height: 1.25rem;
-  width: 1.25rem;
+.spaceY2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }

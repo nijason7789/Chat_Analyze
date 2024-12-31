@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaGithub } from 'react-icons/fa';
-import '../styles/GithubActionForm.css';
+import styles from './GithubActionForm.module.css';
 
 export default function GithubActionForm({ onSubmit, isLoading = false }) {
   const [url, setUrl] = useState('');
@@ -15,29 +15,29 @@ export default function GithubActionForm({ onSubmit, isLoading = false }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-container">
-      <div className="space-y-2">
-        <label htmlFor="url" className="form-label">
+    <form onSubmit={handleSubmit} className={styles.formContainer}>
+      <div className={styles.spaceY2}>
+        <label htmlFor="url" className={styles.formLabel}>
           輸入直播網址
         </label>
         <input
-          type="url"
+          type="text"
           name="url"
           id="url"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://example.com"
-          className="form-input"
+          className={styles.formInput}
           required
         />
       </div>
-      <div className="mt-4">
+      <div className={styles.mt4}>
         <button
           type="submit"
           disabled={isLoading}
-          className={`submit-button ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={isLoading ? `${styles.submitButton} ${styles.opacity50} ${styles.cursorNotAllowed}` : styles.submitButton}
         >
-          <FaGithub className="github-icon" />
+          <FaGithub className={styles.githubIcon} />
           {isLoading ? '處理中...' : '分析聊天室'}
         </button>
       </div>
