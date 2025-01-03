@@ -3,7 +3,7 @@ import axios from 'axios';
 const GITHUB_API_URL = 'https://api.github.com';
 const REPO_OWNER = 'nijason7789';
 const REPO_NAME = 'Chat_Analyze';
-const WORKFLOW_ID = 'chat_analysis.yml';
+const WORKFLOW_ID = 'run_chat_analyze.yaml';
 
 const githubApi = axios.create({
   baseURL: GITHUB_API_URL,

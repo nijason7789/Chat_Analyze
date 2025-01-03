@@ -16,7 +16,7 @@ export default function GithubActionForm({ onSubmit, isLoading = false }) {
 
   return (
     <form onSubmit={handleSubmit} className={styles.formContainer}>
-      <div className={styles.spaceY2}>
+      <div className={styles.inputGroup}>
         <label htmlFor="url" className={styles.formLabel}>
           輸入直播網址
         </label>
@@ -31,7 +31,7 @@ export default function GithubActionForm({ onSubmit, isLoading = false }) {
           required
         />
       </div>
-      <div className={styles.mt4}>
+      <div className={styles.marginTopMedium}>
         <button
           type="submit"
           disabled={isLoading}
