@@ -6,11 +6,11 @@ on:
             url:
                 description: "Input URL for the Live to Analyze"
                 required: true
-                default: "https://example.com"  
+                default: "https://example.com"
             tracking_id:
                 description: "Unique tracking ID for this run"
                 required: true
-                default: ""  
+                default: ""
 
 jobs:
   Analyze-Chat:
@@ -29,6 +29,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+    
     - name: Create .env file
       run: |
         echo "API_KEY=${{ secrets.GOOGLE_API_KEY }}" >> .env
@@ -45,5 +46,5 @@ jobs:
       uses: actions/upload-artifact@v3
       if: success()
       with:
-        name: generated-images
+        name: generated-images-${{ github.event.inputs.tracking_id }}
         path: charts/
