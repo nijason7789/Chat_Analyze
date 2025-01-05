@@ -24,7 +24,7 @@ export const triggerWorkflow = async (url) => {
     await githubApi.post(
       getRepoPath(`/actions/workflows/${WORKFLOW_ID}/dispatches`),
       {
-        ref: 'feat/add_FE',
+        ref: 'main',
         inputs: {
           url,
           tracking_id: trackingId,
