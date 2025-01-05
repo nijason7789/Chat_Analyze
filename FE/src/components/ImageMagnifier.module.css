@@ -1,0 +1,33 @@
+.container {
+  position: relative;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  max-height: calc(90vh - 2rem);
+}
+
+.magnifier {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  z-index: 1000;
+}
+
+.cursor {
+  position: absolute;
+  width: 0.25rem;
+  height: 0.25rem;
+  background-color: #ef4444;
+  border-radius: 9999px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+}

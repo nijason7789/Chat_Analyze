@@ -1,0 +1,177 @@
+.container {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 2rem 1rem;
+}
+
+.content {
+  max-width: 48rem;
+  margin: 0 auto;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  padding: 2rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.formContainer {
+  background-color: #f8fafc;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.inputContainer {
+  margin-bottom: 1.5rem;
+}
+
+.inputLabel {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  min-width: 120px;
+}
+
+.button:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.buttonIcon {
+  margin-right: 0.5rem;
+}
+
+.chartContainer {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid #e2e8f0;
+}
+
+.chartTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.testButtonContainer {
+  text-align: right;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.testButton {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: #6b7280;
+  color: white;
+  border-radius: 0.5rem;
+  transition: background-color 150ms;
+}
+
+.testButton:hover {
+  background-color: #4b5563;
+}
+
+.errorContainer {
+  background-color: #fef2f2;
+  border-left-width: 4px;
+  border-color: #f87171;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.errorContent {
+  display: flex;
+}
+
+.errorIconContainer {
+  flex-shrink: 0;
+}
+
+.errorIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+  color: #f87171;
+}
+
+.errorMessage {
+  margin-left: 0.75rem;
+}
+
+.errorText {
+  font-size: 0.875rem;
+  color: #b91c1c;
+}
+
+.galleryContainer {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.loadingStatus {
+  text-align: center;
+  color: #4b5563;
+  margin-top: 1rem;
+}
