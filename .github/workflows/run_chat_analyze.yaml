@@ -7,6 +7,10 @@ on:
                 description: "Input URL for the Live to Analyze"
                 required: true
                 default: "https://example.com"  
+            tracking_id:
+                description: "Unique tracking ID for this run"
+                required: true
+                default: ""  
 
 jobs:
   Analyze-Chat:
