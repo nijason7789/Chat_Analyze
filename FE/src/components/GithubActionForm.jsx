@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FaGithub } from 'react-icons/fa';
 import styles from './GithubActionForm.module.css';
 
-export default function GithubActionForm({ onSubmit, isLoading = false }) {
+const GithubActionForm = ({ onSubmit, isLoading = false }) => {
   const [url, setUrl] = useState('');
 
   const handleSubmit = (e) => {
@@ -49,3 +49,5 @@ GithubActionForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 };
+
+export default GithubActionForm;

@@ -11,93 +11,101 @@
 
 /* Layout Container */
 .container {
-  margin-inline: auto;
-  padding: var(--spacing-md) var(--spacing-sm);
+  max-width: 48rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 /* Image and Hover Effects */
 .imageWrapper {
   position: relative;
+  border-radius: 0.75rem;
+  overflow: hidden;
   cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  aspect-ratio: 16 / 9;
+}
+
+.imageWrapper:hover {
+  transform: scale(1.02);
 }
 
 .image {
   width: 100%;
-  min-height: 500px;
-  object-fit: contain;
-  border-radius: 0.5rem;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow var(--transition-duration);
-}
-
-.imageWrapper:hover .image {
-  box-shadow: var(--shadow-lg);
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Overlay and Zoom Icon */
 .overlay {
   position: absolute;
   inset: 0;
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
-  transition: background-color var(--transition-duration);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
 
 .imageWrapper:hover .overlay {
-  background-color: var(--overlay-bg);
+  opacity: 1;
 }
 
 .zoomIcon {
-  transform: scale(0);
-  transition: transform var(--transition-duration);
-}
-
-.imageWrapper:hover .zoomIcon {
-  transform: scale(1);
+  background: white;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon {
-  width: 3rem;
-  height: 3rem;
-  color: white;
-  opacity: 0.8;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 /* Dialog Styles */
 .dialog {
-  position: relative;
+  position: fixed;
+  inset: 0;
   z-index: 50;
+  overflow-y: auto;
 }
 
 .dialogBackdrop {
   position: fixed;
   inset: 0;
-  background-color: var(--dialog-bg);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
 }
 
 .dialogContainer {
-  position: fixed;
-  inset: 0;
+  min-height: 100vh;
+  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-sm);
 }
 
 .dialogPanel {
+  position: relative;
   width: 100%;
   max-width: 90vw;
   max-height: 90vh;
-  border-radius: 0.5rem;
-  background-color: white;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
 }
 
 /* Dialog Content */
@@ -108,19 +116,20 @@
 /* Close Button */
 .closeButton {
   position: absolute;
-  top: var(--spacing-sm);
-  right: var(--spacing-sm);
-  z-index: 10;
+  top: -1rem;
+  right: -1rem;
+  background: white;
+  border-radius: 50%;
   padding: 0.5rem;
-  border-radius: 9999px;
-  background-color: rgba(255, 255, 255, 0.8);
-  color: #6b7280;
-  transition: all 150ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  transition: transform 0.2s;
 }
 
 .closeButton:hover {
-  background-color: white;
-  color: #374151;
+  transform: scale(1.1);
 }
 
 .closeIcon {

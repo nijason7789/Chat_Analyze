@@ -154,7 +154,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
-
 charts/
 csv_files/
 # PyCharm

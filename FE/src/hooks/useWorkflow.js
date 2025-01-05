@@ -1,11 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import JSZip from 'jszip';
 import {
   triggerWorkflow,
-  getLatestRun,
+  getRunByTrackingId,
   getWorkflowArtifacts,
   downloadArtifact,
 } from '../services/githubService';
+
+const POLLING_INTERVAL = 5000;
+const TEST_IMAGES = [
+  '/test_charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_change_point_annotations_10s_window.png',
+  '/test_charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_change_point_annotations_30s_window.png',
+  '/test_charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_change_point_annotations_60s_window.png',
+  '/test_charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_highlighted_intervals.png',
+];
 
 export const useWorkflow = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,21 +21,38 @@ export const useWorkflow = () => {
   const [images, setImages] = useState([]);
   const [workflowStatus, setWorkflowStatus] = useState(null);
 
-  const handleWorkflowSubmit = async (url) => {
+  const processArtifacts = async (artifactId) => {
     try {
-      setIsLoading(true);
-      setError(null);
-      await triggerWorkflow(url);
-      pollWorkflowStatus();
+      const zipBlob = await downloadArtifact(artifactId);
+      const zip = new JSZip();
+      const contents = await zip.loadAsync(zipBlob);
+      
+      const imageFiles = await Promise.all(
+        Object.entries(contents.files)
+          .filter(([filename]) => filename.endsWith('.png'))
+          .map(async ([_, file]) => {
+            const blob = await file.async('blob');
+            return URL.createObjectURL(blob);
+          })
+      );
+      
+      setImages(imageFiles);
     } catch (error) {
-      setError(error.message);
-      setIsLoading(false);
+      throw new Error('Failed to process artifacts: ' + error.message);
     }
   };
 
-  const pollWorkflowStatus = useCallback(async () => {
+  const pollWorkflowStatus = useCallback(async (trackingId) => {
+    if (!trackingId) return;
+
     try {
-      const run = await getLatestRun();
+      const run = await getRunByTrackingId(trackingId);
+      
+      if (!run) {
+        setTimeout(() => pollWorkflowStatus(trackingId), POLLING_INTERVAL);
+        return;
+      }
+
       setWorkflowStatus(run.status);
 
       if (run.status === 'completed') {
@@ -41,7 +66,7 @@ export const useWorkflow = () => {
         }
         setIsLoading(false);
       } else {
-        setTimeout(pollWorkflowStatus, 5000);
+        setTimeout(() => pollWorkflowStatus(trackingId), POLLING_INTERVAL);
       }
     } catch (error) {
       setError(error.message);
@@ -49,35 +74,22 @@ export const useWorkflow = () => {
     }
   }, []);
 
-  const processArtifacts = async (artifactId) => {
+  const handleWorkflowSubmit = async (url) => {
     try {
-      const zipBlob = await downloadArtifact(artifactId);
-      const zip = new JSZip();
-      const contents = await zip.loadAsync(zipBlob);
+      setIsLoading(true);
+      setError(null);
+      setImages([]);
       
-      const imageFiles = [];
-      for (const [filename, file] of Object.entries(contents.files)) {
-        if (filename.endsWith('.png')) {
-          const blob = await file.async('blob');
-          const url = URL.createObjectURL(blob);
-          imageFiles.push(url);
-        }
-      }
-      setImages(imageFiles);
+      const { trackingId } = await triggerWorkflow(url);
+      pollWorkflowStatus(trackingId);
     } catch (error) {
-      throw new Error('Failed to process artifacts: ' + error.message);
+      setError(error.message);
+      setIsLoading(false);
     }
   };
 
-  // 開發模式下的測試功能
   const loadTestImages = useCallback(() => {
-    const testImages = [
-      '/charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_change_point_annotations_10s_window.png',
-      '/charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_change_point_annotations_30s_window.png',
-      '/charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_change_point_annotations_60s_window.png',
-      '/charts/2024-11-22-Raden Ch. 儒烏風亭らでん ‐ ReGLOSS_highlighted_intervals.png',
-    ];
-    setImages(testImages);
+    setImages(TEST_IMAGES);
   }, []);
 
   return {
